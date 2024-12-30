@@ -1,0 +1,374 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Endubis's API",
+    "version": "1.0.0"
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "endubis-backend.vercel.app/",
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "description": "Register a new user with email and name",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userData",
+            "in": "body",
+            "description": "User data including email and name",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "John Doe"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "example": "john@example.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "format": "phone",
+                  "example": "0912345678"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password123"
+                }
+              },
+              "required": [
+                "name",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User registered successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    
+    "/auth/forgot-password": {
+      "post": {
+        "summary": "Forgot password",
+        "description": "Send a password reset link to the user's email",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "description": "User email",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "example": "john@example.com"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password reset link sent successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "summary": "Reset password",
+        "description": "Reset user's password, requires a token from the password reset link sent to the user's email",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Password reset token",
+            "required": true,
+            "type": "string",
+            "example": "some-reset-token"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "description": "New password",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "password123"
+                },
+                "confirmPassword": {
+                  "type": "string",
+                  "example": "password123"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password reset successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Get API status",
+        "description": "Check the status of the API",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "API is up and running"
+          }
+        }
+      }
+    },
+    "/api/wallet/public-key/:telegramId": { 
+
+    },
+    "/api/action/balance": {
+      "get": {
+        "summary": "Get user's wallet balance",
+        "description": "Get user's wallet balance",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User's wallet balance"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/action/transactions": {
+      "get": {
+        "summary": "Get user's wallet transactions",
+        "description": "Get user's wallet transactions",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User's wallet transactions"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/action/buy": {
+      "post": {
+        "summary": "Buy cryptocurrency",
+        "description": "Buy cryptocurrency with user's wallet balance",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "cryptoData",
+            "in": "body",
+            "description": "Cryptocurrency data including amount and currency",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "number",
+                  "example": 0.001
+                },
+                "currency": {
+                  "type": "string",
+                  "example": "BTC"
+                }
+              },
+              "required": [
+                "amount",
+                "currency"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cryptocurrency bought successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/action/sell": {
+      "post": {
+        "summary": "Sell cryptocurrency",
+        "description": "Sell cryptocurrency with user's wallet balance",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "cryptoData",
+            "in": "body",
+            "description": "Cryptocurrency data including amount and currency",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "number",
+                  "example": 0.001
+                },
+                "currency": {
+                  "type": "string",
+                  "example": "BTC"
+                }
+              },
+              "required": [
+                "amount",
+                "currency"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cryptocurrency sold successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/action/reveal-secret": {
+      "post": {
+        "summary": "Reveal secret key",
+        "description": "Reveal secret key for a specific cryptocurrency",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "secretKeyData",
+            "in": "body",
+            "description": "Reveal Private key, Seed phrase ",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "publickey": {
+                  "type": "string",
+                  "example": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password123"
+                }
+              },
+              "required": [
+                "publickey",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Secret key revealed successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter your bearer token in the format **Bearer <token>**"
+    }
+  }
+}

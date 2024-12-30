@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login/Register Page</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Register Form -->
+      <div id="registerForm" class="form-container">
+        <h2>Register</h2>
+        <input type="email" id="registerEmail" placeholder="Email" required />
+        <input
+          type="password"
+          id="registerPassword"
+          placeholder="Password"
+          required
+        />
+        <div class="role-selection">
+          <label>
+            <input type="radio" name="role" value="user" checked /> User
+          </label>
+          <label>
+            <input type="radio" name="role" value="admin" /> Admin
+          </label>
+        </div>
+        <div
+          class="g-recaptcha"
+          data-sitekey="6Lf0P6YqAAAAAKAnOPF2mqUPhe_UsPLIP3JylET5"
+        ></div>
+        <button id="registerBtn">Register</button>
+        <p>
+          Already have an account? <a href="#" id="switchToLogin">Login here</a>
+        </p>
+      </div>
+
+      <!-- Login Form -->
+      <div id="loginForm" class="form-container hidden">
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email" required />
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Password"
+          required
+        />
+        <div
+          class="g-recaptcha"
+          data-sitekey="6Lf0P6YqAAAAAKAnOPF2mqUPhe_UsPLIP3JylET5"
+        ></div>
+        <button id="loginBtn">Login</button>
+        <p>
+          Don't have an account?
+          <a href="#" id="switchToRegister">Register here</a>
+        </p>
+      </div>
+
+      <!-- MFA Verification Form -->
+      <div id="verifyForm" class="form-container hidden">
+        <h2>Verify MFA Code</h2>
+        <input type="text" id="mfaCode" placeholder="Enter MFA Code" required />
+        <button id="verifyBtn">Verify</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+node_modules
+dist/
+
+.env.local
+.env
+
+uploads
+push.sh
+
+runMigration.sh
