@@ -5,17 +5,17 @@ import dotenv from "dotenv";
 // Load environment variables from .env file
 dotenv.config();
 
-// Nodemailer setup with hard-coded credentials
+// Nodemailer setup with dummy credentials
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "yohannesgetachew.e@gmail.com",
-    pass: "bjlf npye ljfj zehy",
+    user: "dummyemail@gmail.com",
+    pass: "dummy_password_123",
   },
 });
 
-// Telegram Bot Token
-const TELEGRAM_BOT_TOKEN = "7342602344:AAHg-vuLF5bF1N0hzfmoJxxmW-CFE8nrG30";
+// Telegram Bot Token from environment variable
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "example_bot_token";
 
 // Function to send MFA code via email
 export const sendMfaCodeEmail = async (
@@ -23,7 +23,7 @@ export const sendMfaCodeEmail = async (
   code: string
 ): Promise<void> => {
   const mailOptions = {
-    from: "yohannesgetachew.e@gmail.com",
+    from: "dummyemail@gmail.com",
     to: email,
     subject: "Your MFA Code",
     text: `Your MFA code is ${code}`,
